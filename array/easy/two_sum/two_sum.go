@@ -1,4 +1,4 @@
-package section2
+package twosum
 
 // https://leetcode.com/problems/two-sum/
 
