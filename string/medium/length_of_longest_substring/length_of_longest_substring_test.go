@@ -16,13 +16,18 @@ func TestLengthOfLongestSubString(t *testing.T) {
 		{"", 0},
 		{"abcbda", 4},
 		{"abbbda", 3},
-		{"abbbdab", 3},
-		{"bbbbbb", 1},
 		{"abcabcbb", 3},
+		{"bb", 1},
+		{"abbbdab", 3},
+		{"nfpdmpi", 5},
+		{"asjrgapa", 6},
 	}
 
 	for _, test := range tests {
 		realOutput := lengthOfLongestSubstring(test.input)
 		assert.Equal(t, test.expectedOutput, realOutput)
+
+		realOutput1 := LenghOfLongestSubstringSlideWindow(test.input)
+		assert.Equal(t, test.expectedOutput, realOutput1)
 	}
 }
