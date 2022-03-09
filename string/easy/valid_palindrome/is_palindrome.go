@@ -34,3 +34,43 @@ func isPalindrome(s string) bool {
 
 	return true
 }
+
+func isAlmostPalindrome(s string, isRemove bool) bool {
+	left, right := 0, len(s)-1
+	var charLeft, charRight uint8
+
+	for left <= right {
+		if ('a' <= s[left] && s[left] <= 'z') || ('0' <= s[left] && s[left] <= '9') {
+			charLeft = s[left]
+		} else if 'A' <= s[left] && s[left] <= 'Z' {
+			charLeft = s[left] - 'A' + 'a'
+		} else {
+			left++
+			continue
+		}
+
+		if ('a' <= s[right] && s[right] <= 'z') || ('0' <= s[right] && s[right] <= '9') {
+			charRight = s[right]
+		} else if 'A' <= s[right] && s[right] <= 'Z' {
+			charRight = s[right] - 'A' + 'a'
+		} else {
+			right--
+			continue
+		}
+
+		if charLeft != charRight {
+			if isRemove {
+				return false
+			}
+
+			if !isAlmostPalindrome(s[left+1:right+1], true) {
+				return isAlmostPalindrome(s[left:right], true)
+			} else {
+				return true
+			}
+		}
+		left++
+		right--
+	}
+	return true
+}
