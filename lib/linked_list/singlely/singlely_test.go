@@ -117,3 +117,37 @@ func TestDelete(t *testing.T) {
 	assert.Equal(t, ll4.head.next.next.next.value, 5)
 	assert.Nil(t, ll4.head.next.next.next.next)
 }
+
+func TestRevert(t *testing.T) {
+	var ll LinkedList
+	ll = LinkedList{}
+	ll.Revert()
+	assert.Nil(t, ll.head)
+	// delete head node
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	ll.Revert()
+	assert.Equal(t, ll.head.value, 1)
+	assert.Nil(t, ll.head.next)
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	ll.Insert(2)
+	ll.Revert()
+	assert.Equal(t, ll.head.value, 2)
+	assert.Equal(t, ll.head.next.value, 1)
+	assert.Nil(t, ll.head.next.next)
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	ll.Insert(2)
+	ll.Insert(3)
+	ll.Insert(4)
+	ll.Revert()
+	assert.Equal(t, ll.head.value, 4)
+	assert.Equal(t, ll.head.next.value, 3)
+	assert.Equal(t, ll.head.next.next.value, 2)
+	assert.Equal(t, ll.head.next.next.next.value, 1)
+	assert.Nil(t, ll.head.next.next.next.next)
+}

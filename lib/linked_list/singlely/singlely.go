@@ -80,3 +80,20 @@ func (l *LinkedList) Delete(toBeDeletedNode *Node) {
 		}
 	}
 }
+
+func (l *LinkedList) Revert() {
+	if l.head == nil || l.head.next == nil {
+		return
+	}
+
+	var previousNode *Node
+	currentNode := l.head
+
+	for currentNode != nil {
+		nextNode := currentNode.next
+		currentNode.next = previousNode
+		previousNode = currentNode
+		l.head = currentNode
+		currentNode = nextNode
+	}
+}
