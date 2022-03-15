@@ -151,3 +151,38 @@ func TestRevert(t *testing.T) {
 	assert.Equal(t, ll.head.next.next.next.value, 1)
 	assert.Nil(t, ll.head.next.next.next.next)
 }
+
+func TestFindMiddleNode(t *testing.T) {
+	var ll LinkedList
+	var foundNode *Node
+	ll = LinkedList{}
+	foundNode = ll.FindMiddleNode()
+	assert.Nil(t, foundNode)
+	// delete head node
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	foundNode = ll.FindMiddleNode()
+	assert.Equal(t, foundNode.value, 1)
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	ll.Insert(2)
+	foundNode = ll.FindMiddleNode()
+	assert.Equal(t, foundNode.value, 2)
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	ll.Insert(2)
+	ll.Insert(3)
+	foundNode = ll.FindMiddleNode()
+	assert.Equal(t, foundNode.value, 2)
+
+	ll = LinkedList{}
+	ll.Insert(1)
+	ll.Insert(2)
+	ll.Insert(3)
+	ll.Insert(4)
+	foundNode = ll.FindMiddleNode()
+	assert.Equal(t, foundNode.value, 3)
+}
