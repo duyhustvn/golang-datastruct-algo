@@ -99,19 +99,34 @@ func (l *LinkedList) Revert() {
 }
 
 func (l *LinkedList) FindMiddleNode() *Node {
-	if l.head == nil {
-		return nil
-	}
-	mapIndexToNode := make(map[int]*Node)
+	//if l.head == nil {
+	//	return nil
+	//}
+	//mapIndexToNode := make(map[int]*Node)
 
-	currentNode := l.head
-	i := 0
-	for currentNode != nil {
-		i++
-		mapIndexToNode[i] = currentNode
-		currentNode = currentNode.next
+	//currentNode := l.head
+	//i := 0
+	//for currentNode != nil {
+	//	i++
+	//	mapIndexToNode[i] = currentNode
+	//	currentNode = currentNode.next
+	//}
+
+	//middleIndex := i/2 + 1
+	//return mapIndexToNode[middleIndex]
+
+	if l.head == nil || l.head.next == nil {
+		return l.head
 	}
 
-	middleIndex := i/2 + 1
-	return mapIndexToNode[middleIndex]
+	slowNode := l.head
+	fastNode := l.head.next
+	for fastNode != nil {
+		slowNode = slowNode.next
+		fastNode = fastNode.next
+		if fastNode != nil {
+			fastNode = fastNode.next
+		}
+	}
+	return slowNode
 }
