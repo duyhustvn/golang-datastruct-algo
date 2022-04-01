@@ -14,6 +14,10 @@ Leetcode problems:
      - container with most water 
    - hard
      - trapping rainwater
+3. linked list
+   - easy
+     - reverse linked list
+     - middle of linked list
        
        
        
