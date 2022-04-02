@@ -20,7 +20,9 @@ Leetcode problems:
      - middle of linked list
    - medium 
      - reverse between linked list
-       
+4. stack 
+   - easy
+     - valid paratheses
        
        
         
