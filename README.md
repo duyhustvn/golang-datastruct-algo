@@ -23,6 +23,8 @@ Leetcode problems:
 4. stack 
    - easy
      - valid paratheses
+   - medium 
+     - minimum bracked to remove
        
        
         
