@@ -1,7 +1,7 @@
 package generic_tree
 
 import (
-	queue "ds/lib/queue"
+	queue "ds/queue"
 	"fmt"
 )
 
