@@ -1,5 +1,7 @@
 package bst
 
+import "ds/queue"
+
 type node struct {
 	value int
 	left  *node
@@ -24,9 +26,7 @@ func (t *bst) Insert(v int) {
 		t.root = &newNode
 		return
 	}
-
 	currentNode := t.root
-
 	for currentNode != nil {
 		if v < currentNode.value {
 			if currentNode.left == nil {
@@ -42,4 +42,30 @@ func (t *bst) Insert(v int) {
 			currentNode = currentNode.right
 		}
 	}
+}
+
+func (t *bst) BFS() []int {
+	result := []int{}
+	currentNode := t.root
+	if currentNode == nil {
+		return result
+	}
+	queue := queue.Queue{}
+	result = append(result, currentNode.value)
+	queue.Enqueue(currentNode)
+
+	for !queue.IsEmpty() {
+		qnode, _ := queue.Dequeue()
+		if leftNode := qnode.(*node).left; leftNode != nil {
+			result = append(result, leftNode.value)
+			queue.Enqueue(leftNode)
+		}
+		if rightNode := qnode.(*node).right; rightNode != nil {
+			result = append(result, rightNode.value)
+			queue.Enqueue(rightNode)
+		}
+
+	}
+
+	return result
 }

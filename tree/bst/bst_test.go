@@ -38,4 +38,33 @@ func TestInsert(t *testing.T) {
 	assert.Equal(t, bst.root.right.right.left.value, 24)
 	bst.Insert(29)
 	assert.Equal(t, bst.root.right.right.right.value, 29)
+
+}
+
+func TestBFS(t *testing.T) {
+	/*
+	   				 10
+	               /   \
+	              8     20
+	             / \      \
+	            7   9      25
+	                      /  \
+	                     24  29
+	*/
+
+	bst := InitBST()
+	bst.Insert(10)
+
+	bst.Insert(8)
+	bst.Insert(7)
+	bst.Insert(9)
+
+	bst.Insert(20)
+	bst.Insert(25)
+	bst.Insert(24)
+	bst.Insert(29)
+
+	result := bst.BFS()
+	expectdOuput := []int{10, 8, 20, 7, 9, 25, 24, 29}
+	assert.Equal(t, expectdOuput, result)
 }
