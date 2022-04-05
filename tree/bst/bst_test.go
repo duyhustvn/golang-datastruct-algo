@@ -68,3 +68,32 @@ func TestBFS(t *testing.T) {
 	expectdOuput := []int{10, 8, 20, 7, 9, 25, 24, 29}
 	assert.Equal(t, expectdOuput, result)
 }
+
+func TestDFS(t *testing.T) {
+	/*
+	   				 10
+	               /   \
+	              8     20
+	             / \      \
+	            7   9      25
+	                      /  \
+	                     24  29
+	*/
+
+	bst := InitBST()
+	bst.Insert(10)
+
+	bst.Insert(8)
+	bst.Insert(7)
+	bst.Insert(9)
+
+	bst.Insert(20)
+	bst.Insert(25)
+	bst.Insert(24)
+	bst.Insert(29)
+
+	var result []int
+	DFS(bst.root, &result)
+	expectdOuput := []int{10, 8, 7, 9, 20, 25, 24, 29}
+	assert.Equal(t, expectdOuput, result)
+}

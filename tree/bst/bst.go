@@ -1,6 +1,8 @@
 package bst
 
-import "ds/queue"
+import (
+	"ds/queue"
+)
 
 type node struct {
 	value int
@@ -68,4 +70,18 @@ func (t *bst) BFS() []int {
 	}
 
 	return result
+}
+
+func DFS(root *node, result *[]int) {
+	if root == nil {
+		return
+	}
+	*result = append(*result, root.value)
+
+	if root.left != nil {
+		DFS(root.left, result)
+	}
+	if root.right != nil {
+		DFS(root.right, result)
+	}
 }
