@@ -41,7 +41,7 @@ func TestInsert(t *testing.T) {
 
 }
 
-func TestBFS(t *testing.T) {
+func createTree() *bst {
 	/*
 	   				 10
 	               /   \
@@ -63,37 +63,32 @@ func TestBFS(t *testing.T) {
 	bst.Insert(25)
 	bst.Insert(24)
 	bst.Insert(29)
+	return bst
+}
 
+func TestBFS(t *testing.T) {
+	bst := createTree()
 	result := bst.BFS()
 	expectdOuput := []int{10, 8, 20, 7, 9, 25, 24, 29}
 	assert.Equal(t, expectdOuput, result)
 }
 
 func TestDFS(t *testing.T) {
-	/*
-	   				 10
-	               /   \
-	              8     20
-	             / \      \
-	            7   9      25
-	                      /  \
-	                     24  29
-	*/
+	bst := createTree()
+	root := bst.root
+	var dFSPreOderResult []int
+	DFSPreOrder(root, &dFSPreOderResult)
+	expectdDFSPreOrderResult := []int{10, 8, 7, 9, 20, 25, 24, 29}
+	assert.Equal(t, expectdDFSPreOrderResult, dFSPreOderResult)
 
-	bst := InitBST()
-	bst.Insert(10)
+	var dFSInOderResult []int
+	expectedDFSInOrderResult := []int{7, 8, 9, 10, 20, 24, 25, 29}
+	DFSInOrder(root, &dFSInOderResult)
+	assert.Equal(t, expectedDFSInOrderResult, dFSInOderResult)
 
-	bst.Insert(8)
-	bst.Insert(7)
-	bst.Insert(9)
+	var dFSPostOderResult []int
+	expectedDFSPostOrderResult := []int{7, 9, 8, 24, 29, 25, 20, 10}
+	DFSPostOrder(root, &dFSPostOderResult)
+	assert.Equal(t, expectedDFSPostOrderResult, dFSPostOderResult)
 
-	bst.Insert(20)
-	bst.Insert(25)
-	bst.Insert(24)
-	bst.Insert(29)
-
-	var result []int
-	DFS(bst.root, &result)
-	expectdOuput := []int{10, 8, 7, 9, 20, 25, 24, 29}
-	assert.Equal(t, expectdOuput, result)
 }

@@ -25,6 +25,9 @@ Leetcode problems:
      - valid paratheses
    - medium 
      - minimum bracked to remove
+5. tree 
+   - easy
+     - 
        
        
         

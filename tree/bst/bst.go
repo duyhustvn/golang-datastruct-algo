@@ -72,16 +72,50 @@ func (t *bst) BFS() []int {
 	return result
 }
 
-func DFS(root *node, result *[]int) {
+func DFSPreOrder(root *node, result *[]int) {
 	if root == nil {
 		return
 	}
+
 	*result = append(*result, root.value)
 
 	if root.left != nil {
-		DFS(root.left, result)
+		DFSPreOrder(root.left, result)
 	}
+
 	if root.right != nil {
-		DFS(root.right, result)
+		DFSPreOrder(root.right, result)
 	}
+}
+
+func DFSInOrder(root *node, result *[]int) {
+	if root == nil {
+		return
+	}
+
+	if leftNode := root.left; leftNode != nil {
+		DFSInOrder(leftNode, result)
+	}
+
+	*result = append(*result, root.value)
+
+	if rightNode := root.right; rightNode != nil {
+		DFSInOrder(rightNode, result)
+	}
+}
+
+func DFSPostOrder(root *node, result *[]int) {
+	if root == nil {
+		return
+	}
+
+	if leftNode := root.left; leftNode != nil {
+		DFSPostOrder(leftNode, result)
+	}
+
+	if rightNode := root.right; rightNode != nil {
+		DFSPostOrder(rightNode, result)
+	}
+
+	*result = append(*result, root.value)
 }
