@@ -19,25 +19,25 @@ func TestInsert(t *testing.T) {
 
 	bst := InitBST()
 	bst.Insert(10)
-	assert.Equal(t, bst.root.value, 10)
-	assert.Nil(t, bst.root.left)
-	assert.Nil(t, bst.root.right)
+	assert.Equal(t, bst.root.Val, 10)
+	assert.Nil(t, bst.root.Left)
+	assert.Nil(t, bst.root.Right)
 
 	bst.Insert(8)
-	assert.Equal(t, bst.root.left.value, 8)
+	assert.Equal(t, bst.root.Left.Val, 8)
 	bst.Insert(7)
-	assert.Equal(t, bst.root.left.left.value, 7)
+	assert.Equal(t, bst.root.Left.Left.Val, 7)
 	bst.Insert(9)
-	assert.Equal(t, bst.root.left.right.value, 9)
+	assert.Equal(t, bst.root.Left.Right.Val, 9)
 
 	bst.Insert(20)
-	assert.Equal(t, bst.root.right.value, 20)
+	assert.Equal(t, bst.root.Right.Val, 20)
 	bst.Insert(25)
-	assert.Equal(t, bst.root.right.right.value, 25)
+	assert.Equal(t, bst.root.Right.Right.Val, 25)
 	bst.Insert(24)
-	assert.Equal(t, bst.root.right.right.left.value, 24)
+	assert.Equal(t, bst.root.Right.Right.Left.Val, 24)
 	bst.Insert(29)
-	assert.Equal(t, bst.root.right.right.right.value, 29)
+	assert.Equal(t, bst.root.Right.Right.Right.Val, 29)
 
 }
 

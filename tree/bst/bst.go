@@ -4,22 +4,22 @@ import (
 	"ds/queue"
 )
 
-type node struct {
-	value int
-	left  *node
-	right *node
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
 type bst struct {
-	root *node
+	root *TreeNode
 }
 
 func InitBST() *bst {
 	return &bst{}
 }
 
-func makeNewNode(v int) node {
-	return node{value: v}
+func makeNewNode(v int) TreeNode {
+	return TreeNode{Val: v}
 }
 
 func (t *bst) Insert(v int) {
@@ -30,18 +30,18 @@ func (t *bst) Insert(v int) {
 	}
 	currentNode := t.root
 	for currentNode != nil {
-		if v < currentNode.value {
-			if currentNode.left == nil {
-				currentNode.left = &newNode
+		if v < currentNode.Val {
+			if currentNode.Left == nil {
+				currentNode.Left = &newNode
 				break
 			}
-			currentNode = currentNode.left
+			currentNode = currentNode.Left
 		} else {
-			if currentNode.right == nil {
-				currentNode.right = &newNode
+			if currentNode.Right == nil {
+				currentNode.Right = &newNode
 				break
 			}
-			currentNode = currentNode.right
+			currentNode = currentNode.Right
 		}
 	}
 }
@@ -53,17 +53,17 @@ func (t *bst) BFS() []int {
 		return result
 	}
 	queue := queue.Queue{}
-	result = append(result, currentNode.value)
+	result = append(result, currentNode.Val)
 	queue.Enqueue(currentNode)
 
 	for !queue.IsEmpty() {
 		qnode, _ := queue.Dequeue()
-		if leftNode := qnode.(*node).left; leftNode != nil {
-			result = append(result, leftNode.value)
+		if leftNode := qnode.(*TreeNode).Left; leftNode != nil {
+			result = append(result, leftNode.Val)
 			queue.Enqueue(leftNode)
 		}
-		if rightNode := qnode.(*node).right; rightNode != nil {
-			result = append(result, rightNode.value)
+		if rightNode := qnode.(*TreeNode).Right; rightNode != nil {
+			result = append(result, rightNode.Val)
 			queue.Enqueue(rightNode)
 		}
 
@@ -72,50 +72,50 @@ func (t *bst) BFS() []int {
 	return result
 }
 
-func DFSPreOrder(root *node, result *[]int) {
+func DFSPreOrder(root *TreeNode, result *[]int) {
 	if root == nil {
 		return
 	}
 
-	*result = append(*result, root.value)
+	*result = append(*result, root.Val)
 
-	if root.left != nil {
-		DFSPreOrder(root.left, result)
+	if root.Left != nil {
+		DFSPreOrder(root.Left, result)
 	}
 
-	if root.right != nil {
-		DFSPreOrder(root.right, result)
+	if root.Right != nil {
+		DFSPreOrder(root.Right, result)
 	}
 }
 
-func DFSInOrder(root *node, result *[]int) {
+func DFSInOrder(root *TreeNode, result *[]int) {
 	if root == nil {
 		return
 	}
 
-	if leftNode := root.left; leftNode != nil {
+	if leftNode := root.Left; leftNode != nil {
 		DFSInOrder(leftNode, result)
 	}
 
-	*result = append(*result, root.value)
+	*result = append(*result, root.Val)
 
-	if rightNode := root.right; rightNode != nil {
+	if rightNode := root.Right; rightNode != nil {
 		DFSInOrder(rightNode, result)
 	}
 }
 
-func DFSPostOrder(root *node, result *[]int) {
+func DFSPostOrder(root *TreeNode, result *[]int) {
 	if root == nil {
 		return
 	}
 
-	if leftNode := root.left; leftNode != nil {
+	if leftNode := root.Left; leftNode != nil {
 		DFSPostOrder(leftNode, result)
 	}
 
-	if rightNode := root.right; rightNode != nil {
+	if rightNode := root.Right; rightNode != nil {
 		DFSPostOrder(rightNode, result)
 	}
 
-	*result = append(*result, root.value)
+	*result = append(*result, root.Val)
 }
