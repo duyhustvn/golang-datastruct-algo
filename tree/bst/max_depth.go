@@ -9,28 +9,23 @@ func maxDepth(root *TreeNode) int {
 	if root.Left == nil && root.Right == nil {
 		return 1
 	}
-	DFS(root, 1, &max)
+	DFS(root, 0, &max)
 	return max
 }
 
 func DFS(root *TreeNode, i int, max *int) {
-	foundLeft := false
+	if root == nil {
+		return
+	}
+	i++
+	if i > *max {
+		*max = i
+	}
+
 	if root.Left != nil {
-		foundLeft = true
-		i++
-		if i > *max {
-			*max = i
-		}
 		DFS(root.Left, i, max)
 	}
 	if root.Right != nil {
-		if !foundLeft {
-			i++
-			if i > *max {
-				*max = i
-			}
-
-		}
 		DFS(root.Right, i, max)
 	}
 }
