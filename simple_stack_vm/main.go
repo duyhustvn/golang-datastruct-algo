@@ -74,6 +74,9 @@ func Solution(a []string) []int {
 			}
 			break
 		case "ADD":
+			if err := add(&stack); err != nil {
+				return []int{}
+			}
 			break
 		case "SWAP":
 			break
@@ -112,5 +115,14 @@ func multiply(stack *Stack) error {
 		return err
 	}
 	stack.Push(num1 * num2)
+	return nil
+}
+
+func add(stack *Stack) error {
+	num1, num2, err := pop2Element(stack)
+	if err != nil {
+		return err
+	}
+	stack.Push(num1 + num2)
 	return nil
 }

@@ -23,6 +23,12 @@ func TestSolution(t *testing.T) {
 		{[]string{"PUSH 10", "PUSH 20", "MUL", "MUL"}, []int{}},
 		{[]string{"PUSH 10", "PUSH 20", "MUL", "PUSH 10"}, []int{10, 200}},
 		{[]string{"PUSH 10", "PUSH 20", "MUL", "PUSH 10", "MUL"}, []int{2000}},
+
+		{[]string{"PUSH 10", "ADD"}, []int{}},
+		{[]string{"PUSH 10", "PUSH 20", "ADD"}, []int{30}},
+		{[]string{"PUSH 10", "PUSH 20", "ADD", "ADD"}, []int{}},
+		{[]string{"PUSH 10", "PUSH 20", "ADD", "PUSH 10"}, []int{10, 30}},
+		{[]string{"PUSH 10", "PUSH 20", "ADD", "PUSH 10", "ADD"}, []int{40}},
 	}
 	for _, test := range tests {
 		realOutput := Solution(test.input)
