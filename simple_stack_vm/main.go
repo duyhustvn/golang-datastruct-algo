@@ -90,20 +90,27 @@ func Solution(a []string) []int {
 	return result
 }
 
+func pop2Element(stack *Stack) (int, int, error) {
+	num1 := stack.Pop()
+	if num1 == nil {
+		return 0, 0, errors.New("Require at least 2 element")
+	}
+	num2 := stack.Pop()
+	if num2 == nil {
+		return 0, 0, errors.New("Require at least 2 element")
+	}
+	return num1.(int), num2.(int), nil
+}
+
 func pushNumberToStack(stack *Stack, num int) {
 	stack.Push(num)
 }
 
 func multiply(stack *Stack) error {
-	num1 := stack.Pop()
-	if num1 == nil {
-		return errors.New("Require at least 2 element")
+	num1, num2, err := pop2Element(stack)
+	if err != nil {
+		return err
 	}
-	num2 := stack.Pop()
-	if num2 == nil {
-		return errors.New("Require at least 2 element")
-	}
-
-	stack.Push(num1.(int) * num2.(int))
+	stack.Push(num1 * num2)
 	return nil
 }
