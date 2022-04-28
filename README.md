@@ -28,6 +28,7 @@ Leetcode problems:
 5. tree 
    - easy
      - max depth of binary tree 
+     - search in bst
        
        
         
