@@ -46,9 +46,9 @@ func (t *bst) Insert(v int) {
 	}
 }
 
-func (t *bst) BFS() []int {
+func BFS(root *TreeNode) []int {
 	result := []int{}
-	currentNode := t.root
+	currentNode := root
 	if currentNode == nil {
 		return result
 	}

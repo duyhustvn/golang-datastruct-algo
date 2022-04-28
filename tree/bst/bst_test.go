@@ -68,7 +68,7 @@ func createTree() *bst {
 
 func TestBFS(t *testing.T) {
 	bst := createTree()
-	result := bst.BFS()
+	result := BFS(bst.root)
 	expectdOuput := []int{10, 8, 20, 7, 9, 25, 24, 29}
 	assert.Equal(t, expectdOuput, result)
 }
