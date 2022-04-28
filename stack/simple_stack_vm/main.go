@@ -2,7 +2,6 @@ package simplestackvm
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -56,13 +55,18 @@ func Solution(a []string) []int {
 
 	for _, element := range a {
 		var num int
+		var err error
 		e := strings.Split(strings.Trim(element, " "), " ")
+		if len(e) < 1 {
+			return []int{}
+		}
 		operator := e[0]
 		if len(e) > 1 {
-			num, _ = strconv.Atoi(e[1])
+			num, err = strconv.Atoi(e[1])
+			if err != nil {
+				return []int{}
+			}
 		}
-
-		fmt.Printf("operator: %s num: %d\n", operator, num)
 
 		switch operator {
 		case "PUSH":
@@ -79,9 +83,13 @@ func Solution(a []string) []int {
 			}
 			break
 		case "SWAP":
+			if err := swapTop2(&stack); err != nil {
+				return []int{}
+			}
+
 			break
 		default:
-			break
+			return []int{}
 		}
 	}
 
@@ -124,5 +132,15 @@ func add(stack *Stack) error {
 		return err
 	}
 	stack.Push(num1 + num2)
+	return nil
+}
+
+func swapTop2(stack *Stack) error {
+	num1, num2, err := pop2Element(stack)
+	if err != nil {
+		return err
+	}
+	stack.Push(num1)
+	stack.Push(num2)
 	return nil
 }
