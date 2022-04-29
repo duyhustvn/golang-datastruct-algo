@@ -9,7 +9,7 @@ func maxPathSum(root *TreeNode) int {
 		return 0
 	}
 	sum := 0
-	max := 0
+	max := root.Val
 	maxPathSumR(root, sum, &max)
 	return max
 }
