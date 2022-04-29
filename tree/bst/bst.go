@@ -10,19 +10,19 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-type bst struct {
+type Bst struct {
 	root *TreeNode
 }
 
-func InitBST() *bst {
-	return &bst{}
+func InitBST() *Bst {
+	return &Bst{}
 }
 
 func makeNewNode(v int) TreeNode {
 	return TreeNode{Val: v}
 }
 
-func (t *bst) Insert(v int) {
+func (t *Bst) Insert(v int) {
 	newNode := makeNewNode(v)
 	if t.root == nil {
 		t.root = &newNode

@@ -41,7 +41,7 @@ func TestInsert(t *testing.T) {
 
 }
 
-func createTree() *bst {
+func createTree() *Bst {
 	/*
 	   				 10
 	               /   \
