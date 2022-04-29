@@ -11,7 +11,7 @@ type TreeNode struct {
 }
 
 type Bst struct {
-	root *TreeNode
+	Root *TreeNode
 }
 
 func InitBST() *Bst {
@@ -24,11 +24,11 @@ func makeNewNode(v int) TreeNode {
 
 func (t *Bst) Insert(v int) {
 	newNode := makeNewNode(v)
-	if t.root == nil {
-		t.root = &newNode
+	if t.Root == nil {
+		t.Root = &newNode
 		return
 	}
-	currentNode := t.root
+	currentNode := t.Root
 	for currentNode != nil {
 		if v < currentNode.Val {
 			if currentNode.Left == nil {
