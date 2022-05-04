@@ -10,25 +10,25 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-type bst struct {
-	root *TreeNode
+type Bst struct {
+	Root *TreeNode
 }
 
-func InitBST() *bst {
-	return &bst{}
+func InitBST() *Bst {
+	return &Bst{}
 }
 
 func makeNewNode(v int) TreeNode {
 	return TreeNode{Val: v}
 }
 
-func (t *bst) Insert(v int) {
+func (t *Bst) Insert(v int) {
 	newNode := makeNewNode(v)
-	if t.root == nil {
-		t.root = &newNode
+	if t.Root == nil {
+		t.Root = &newNode
 		return
 	}
-	currentNode := t.root
+	currentNode := t.Root
 	for currentNode != nil {
 		if v < currentNode.Val {
 			if currentNode.Left == nil {

@@ -20,12 +20,12 @@ func TestSearchBST(t *testing.T) {
 	bst := InitBST()
 	bst.Insert(10)
 	var realNode *TreeNode
-	realNode = searchBST(bst.root, 10)
+	realNode = searchBST(bst.Root, 10)
 	assert.Equal(t, 10, realNode.Val)
 
 	bst.Insert(8)
-	realNode = searchBST(bst.root, 10)
+	realNode = searchBST(bst.Root, 10)
 	assert.Equal(t, 10, realNode.Val)
-	realNode = searchBST(bst.root, 8)
+	realNode = searchBST(bst.Root, 8)
 	assert.Equal(t, 8, realNode.Val)
 }
