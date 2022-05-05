@@ -94,15 +94,14 @@ func (g *ItemGraph) String() {
 	}
 }
 
-func (g *ItemGraph) BFS() []interface{} {
+func BFS(g *ItemGraph, startNode *Node) []interface{} {
 	fmt.Println("BFS")
 	result := make([]interface{}, 0)
 	q := queue.Queue{}
 	visited := make(map[Node]bool)
 
-	node := g.node[0]
-	q.Enqueue(node)
-	visited[*node] = true
+	q.Enqueue(startNode)
+	visited[*startNode] = true
 
 	for !q.IsEmpty() {
 		nodeInQueue, _ := q.Dequeue()

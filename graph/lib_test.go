@@ -2,6 +2,8 @@ package graph
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestAddEdge(t *testing.T) {
@@ -18,6 +20,13 @@ func TestAddEdge(t *testing.T) {
 
 	// t.Logf("vertices: %+v\n", g.Vertices)
 	// assert.NotNil(t, g.Vertices)
+
+	/*
+
+	   5   4    7  6             8
+	   \  /     \ /             /
+	    1  ----- 2 ----------- 3
+	*/
 
 	n1 := NewNode(1)
 	n5 := NewNode(5)
@@ -49,6 +58,12 @@ func TestAddEdge(t *testing.T) {
 
 	g.String()
 
-	result := g.BFS()
-	t.Logf("result: %+v", result)
+	result := make([]interface{}, 0)
+	result = BFS(g, n8)
+	// t.Logf("result: %+v", result)
+	assert.Equal(t, []interface{}{8, 3, 2, 1, 7, 6, 4, 5}, result)
+
+	result = BFS(g, n1)
+	assert.Equal(t, []interface{}{1, 2, 4, 5, 7, 3, 6, 8}, result)
+	// t.Logf("result: %+v", result)
 }
