@@ -2,6 +2,7 @@ package graph
 
 import (
 	"ds/queue"
+	"ds/stack"
 	"fmt"
 )
 
@@ -95,7 +96,6 @@ func (g *ItemGraph) String() {
 }
 
 func BFS(g *ItemGraph, startNode *Node) []interface{} {
-	fmt.Println("BFS")
 	result := make([]interface{}, 0)
 	q := queue.Queue{}
 	visited := make(map[Node]bool)
@@ -116,5 +116,29 @@ func BFS(g *ItemGraph, startNode *Node) []interface{} {
 		}
 
 	}
+	return result
+}
+
+func DFS(g *ItemGraph, startNode *Node) []interface{} {
+	result := make([]interface{}, 0)
+	visited := make(map[Node]bool)
+
+	s := stack.Stack{}
+	s.Push(startNode)
+	visited[*startNode] = true
+
+	for !s.IsEmpty() {
+		vertex := s.Pop()
+		result = append(result, vertex.(*Node).value)
+		neighbors := g.edges[*vertex.(*Node)]
+		for _, neighbor := range neighbors {
+			if _, ok := visited[*neighbor]; !ok {
+				visited[*neighbor] = true
+				s.Push(neighbor)
+			}
+
+		}
+	}
+
 	return result
 }

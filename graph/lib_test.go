@@ -66,4 +66,7 @@ func TestAddEdge(t *testing.T) {
 	result = BFS(g, n1)
 	assert.Equal(t, []interface{}{1, 2, 4, 5, 7, 3, 6, 8}, result)
 	// t.Logf("result: %+v", result)
+
+	result = DFS(g, n1)
+	assert.Equal(t, []interface{}{1, 5, 4, 2, 6, 3, 8, 7}, result)
 }
