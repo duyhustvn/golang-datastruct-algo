@@ -72,3 +72,21 @@ func TestGetDepth(t *testing.T) {
 		assert.Equal(t, test.expectedDepth, actualDepth)
 	}
 }
+
+func TestNumberOfMinutes(t *testing.T) {
+	type TestData struct {
+		headID       int
+		manager      []int
+		informTime   []int
+		expectedTime int
+	}
+
+	tests := []TestData{
+		{6, []int{2, 2, 6, 4, 6, 4, -1, 6, 6}, []int{0, 0, 2, 0, 1, 0, 2, 0, 0}, 4},
+	}
+
+	for _, test := range tests {
+		actualTime := numOfMinutes(9, test.headID, test.manager, test.informTime)
+		assert.Equal(t, test.expectedTime, actualTime)
+	}
+}
