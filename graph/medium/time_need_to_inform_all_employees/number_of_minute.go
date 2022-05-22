@@ -12,7 +12,7 @@ func numOfMinutes(n int, headID int, manager []int, informTime []int) int {
 
 	adjacencyList := buildAdjacencyList(headID, manager)
 	grap, headNode := buildGraphFromAdjacencyList(adjacencyList, headID)
-	getDepth(grap, headNode)
+	getDepth(grap, headNode, informTime)
 	return numberOfMinute
 }
 
@@ -56,24 +56,25 @@ func buildGraphFromAdjacencyList(adjacencyList map[int][]int, headID int) (*lib.
 	return graph, headNode
 }
 
-func getDepth(graph *lib.ItemGraph, startNode *lib.Node) int {
+func getDepth(graph *lib.ItemGraph, startNode *lib.Node, informTime []int) int {
 	depth := make(map[*lib.Node]int)
 	maxDepth := 0
 	visited := make(map[lib.Node]bool)
 	s := stack.Stack{}
 	s.Push(startNode)
 	visited[*startNode] = true
-	depth[startNode] = 1
+	depth[startNode] = 0
 	for !s.IsEmpty() {
 		node := s.Pop().(*lib.Node)
+		vNode := (*node).Value.(int)
 		neighbors := graph.Edges[*node]
 		for _, neighbor := range neighbors {
 			if _, ok := visited[*neighbor]; !ok {
 				preDepth := depth[node]
-				if preDepth+1 > maxDepth {
-					maxDepth = preDepth + 1
+				if preDepth+informTime[vNode] > maxDepth {
+					maxDepth = preDepth + informTime[vNode]
 				}
-				depth[neighbor] = preDepth + 1
+				depth[neighbor] = preDepth + informTime[vNode]
 				s.Push(neighbor)
 				visited[*neighbor] = true
 			}

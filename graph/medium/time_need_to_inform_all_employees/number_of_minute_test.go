@@ -1,8 +1,9 @@
 package time_need_to_inform_all_employees
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBuildAdjacencyList(t *testing.T) {
@@ -46,9 +47,28 @@ func TestBuildGraphFromAdjacencyList(t *testing.T) {
 	for _, test := range tests {
 		graph, headNode := buildGraphFromAdjacencyList(test.adjacencyList, 6)
 		graph.String()
+		assert.NotNil(t, headNode)
 
-		actualDepth := getDepth(graph, headNode)
+	}
+}
+
+func TestGetDepth(t *testing.T) {
+	type TestData struct {
+		adjacencyList map[int][]int
+		informTime    []int
+		expectedDepth int
+	}
+
+	tests := []TestData{
+		{map[int][]int{6: []int{2, 4, 7, 8}, 2: []int{0, 1}}, []int{0, 0, 2, 0, 1, 0, 2, 0, 0}, 4},
+	}
+
+	for _, test := range tests {
+		graph, headNode := buildGraphFromAdjacencyList(test.adjacencyList, 6)
+		graph.String()
+		assert.NotNil(t, headNode)
+
+		actualDepth := getDepth(graph, headNode, test.informTime)
 		assert.Equal(t, test.expectedDepth, actualDepth)
-
 	}
 }

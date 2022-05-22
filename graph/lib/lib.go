@@ -55,7 +55,7 @@ func (g *Graph) AddEdge(k1, k2 int) {
 }
 
 type Node struct {
-	value interface{}
+	Value interface{}
 }
 
 type ItemGraph struct {
@@ -64,7 +64,7 @@ type ItemGraph struct {
 }
 
 func NewNode(v interface{}) *Node {
-	return &Node{value: v}
+	return &Node{Value: v}
 }
 
 func NewGraph() *ItemGraph {
@@ -87,9 +87,9 @@ func (g *ItemGraph) AddEdge(n1 *Node, n2 *Node) {
 func (g *ItemGraph) String() {
 	for _, node := range g.node {
 		vertices := g.Edges[*node]
-		fmt.Print(node.value, " -> ")
+		fmt.Print(node.Value, " -> ")
 		for _, vetex := range vertices {
-			fmt.Print(vetex.value, " ")
+			fmt.Print(vetex.Value, " ")
 		}
 		fmt.Println()
 	}
@@ -105,7 +105,7 @@ func BFS(g *ItemGraph, startNode *Node) []interface{} {
 
 	for !q.IsEmpty() {
 		nodeInQueue, _ := q.Dequeue()
-		result = append(result, nodeInQueue.(*Node).value)
+		result = append(result, nodeInQueue.(*Node).Value)
 		verticles := g.Edges[*nodeInQueue.(*Node)]
 
 		for _, vertex := range verticles {
@@ -129,7 +129,7 @@ func DFS(g *ItemGraph, startNode *Node) []interface{} {
 
 	for !s.IsEmpty() {
 		vertex := s.Pop()
-		result = append(result, vertex.(*Node).value)
+		result = append(result, vertex.(*Node).Value)
 		neighbors := g.Edges[*vertex.(*Node)]
 		for _, neighbor := range neighbors {
 			if _, ok := visited[*neighbor]; !ok {
