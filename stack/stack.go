@@ -2,13 +2,13 @@ package stack
 
 import "fmt"
 
-type Node struct {
+type SNode struct {
 	Value interface{} `json:"value"`
-	Next  *Node       `json:"next"`
+	Next  *SNode      `json:"next"`
 }
 
 type Stack struct {
-	Head *Node `json:"head"`
+	Head *SNode `json:"head"`
 }
 
 func (s *Stack) IsEmpty() bool {
@@ -18,8 +18,8 @@ func (s *Stack) IsEmpty() bool {
 	return false
 }
 
-func createNewNode(v interface{}) Node {
-	n := Node{
+func createNewNode(v interface{}) SNode {
+	n := SNode{
 		Value: v,
 	}
 	return n
