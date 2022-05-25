@@ -1,12 +1,57 @@
 package time_need_to_inform_all_employees
 
 import (
-	"ds/stack"
 	"fmt"
 )
 
 // https://leetcode.com/problems/time-needed-to-inform-all-employees/
 
+// Stack
+type SNode struct {
+	Value interface{} `json:"value"`
+	Next  *SNode      `json:"next"`
+}
+
+type Stack struct {
+	Head *SNode `json:"head"`
+}
+
+func (s *Stack) IsEmpty() bool {
+	if s.Head == nil {
+		return true
+	}
+	return false
+}
+
+func createNewNode(v interface{}) SNode {
+	n := SNode{
+		Value: v,
+	}
+	return n
+}
+
+func (s *Stack) Push(v interface{}) {
+	newNode := createNewNode(v)
+	if s.IsEmpty() {
+		s.Head = &newNode
+		return
+	}
+
+	newNode.Next = s.Head
+	s.Head = &newNode
+	return
+}
+
+func (s *Stack) Pop() interface{} {
+	if s.IsEmpty() {
+		return nil
+	}
+	v := s.Head.Value
+	s.Head = s.Head.Next
+	return v
+}
+
+// Graph
 type Node struct {
 	Value int
 }
@@ -49,6 +94,9 @@ func (g *ItemGraph) String() {
 }
 
 func numOfMinutes(n int, headID int, manager []int, informTime []int) int {
+	if n == 0 || n == 1 {
+		return 0
+	}
 	adjacencyList := buildAdjacencyList(headID, manager)
 	grap, headNode := buildGraphFromAdjacencyList(adjacencyList, headID)
 	return getDepth(grap, headNode, informTime)
@@ -98,7 +146,7 @@ func getDepth(graph *ItemGraph, startNode *Node, informTime []int) int {
 	depth := make(map[*Node]int)
 	maxDepth := 0
 	visited := make(map[Node]bool)
-	s := stack.Stack{}
+	s := Stack{}
 	s.Push(startNode)
 	visited[*startNode] = true
 	depth[startNode] = 0
