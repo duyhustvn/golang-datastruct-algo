@@ -92,3 +92,58 @@ func TestNumberOfMinutes(t *testing.T) {
 		assert.Equal(t, test.expectedTime, actualTime)
 	}
 }
+
+func TestBuildAdjacencyListWithWeight(t *testing.T) {
+	type TestData struct {
+		headerId   int
+		managers   []int
+		informTime []int
+	}
+
+	tests := []TestData{
+		{6, []int{1, 6, 1, 4, 6, 4, -1, 6, 6}, []int{0, 1, 0, 0, 2, 0, 3, 0, 0}},
+	}
+
+	for _, test := range tests {
+		actualOutput := buildAdjacencyListWithWeight(test.managers, test.informTime)
+		t.Log(actualOutput)
+		suborsOf6, ok := actualOutput[6]
+		assert.Equal(t, true, ok)
+		assert.Equal(t, []int{1, 4, 7, 8}, suborsOf6.Sub)
+		assert.Equal(t, 3, suborsOf6.Weight)
+
+		suborsOf4, ok := actualOutput[4]
+		assert.Equal(t, true, ok)
+		assert.Equal(t, []int{3, 5}, suborsOf4.Sub)
+		assert.Equal(t, 2, suborsOf4.Weight)
+
+		suborsOf1, ok := actualOutput[1]
+		assert.Equal(t, true, ok)
+		assert.Equal(t, []int{0, 2}, suborsOf1.Sub)
+		assert.Equal(t, 1, suborsOf1.Weight)
+	}
+}
+
+func TestBuildWeightGraphFromAdjacencyList(t *testing.T) {
+	type TestData struct {
+		headerId      int
+		adjacencyList map[int]AdjacencyListWithWeight
+	}
+
+	tests := []TestData{
+		{6, map[int]AdjacencyListWithWeight{
+			1: {[]int{0, 2}, 1},
+			4: {[]int{3, 5}, 2},
+			6: {[]int{1, 4, 7, 8}, 3},
+		}},
+	}
+
+	for _, test := range tests {
+		graph, headNode := buildWeightGraphFromAdjacencyList(test.headerId, test.adjacencyList)
+		graph.String()
+		assert.NotNil(t, graph)
+		assert.NotNil(t, headNode)
+
+	}
+
+}
