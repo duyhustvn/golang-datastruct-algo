@@ -2,6 +2,7 @@ package time_need_to_inform_all_employees
 
 import "fmt"
 
+// Weighted Graph
 type GNode struct {
 	Value int
 }
@@ -87,4 +88,37 @@ func buildWeightGraphFromAdjacencyList(headerID int, adjacencyList map[int]Adjac
 		}
 	}
 	return g, headNode
+}
+
+func numOfMinutesWeightedGraph(n int, headID int, manager []int, informTime []int) int {
+	if n == 0 || n == 1 {
+		return 0
+	}
+	adjacencyList := buildAdjacencyListWithWeight(manager, informTime)
+	wg, headerNode := buildWeightGraphFromAdjacencyList(headID, adjacencyList)
+	return getDepthWeightedGraph(wg, headerNode)
+}
+
+func getDepthWeightedGraph(graph *WeightedGraph, startNode *GNode) int {
+	s := Stack{}
+	visited := make(map[GNode]bool)
+	depth := make(map[GNode]int)
+	s.Push(startNode)
+	depth[*startNode] = 0
+	max := 0
+
+	for !s.IsEmpty() {
+		node := s.Pop().(*GNode)
+		for _, edge := range graph.Edges[*node] {
+			if _, ok := visited[*edge.Node]; !ok {
+				depth[*edge.Node] = depth[*node] + edge.Weight
+				if max < depth[*edge.Node] {
+					max = depth[*edge.Node]
+				}
+				visited[*node] = true
+				s.Push(edge.Node)
+			}
+		}
+	}
+	return max
 }

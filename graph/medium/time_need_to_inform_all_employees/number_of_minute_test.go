@@ -90,6 +90,12 @@ func TestNumberOfMinutes(t *testing.T) {
 	for _, test := range tests {
 		actualTime := numOfMinutes(test.n, test.headID, test.manager, test.informTime)
 		assert.Equal(t, test.expectedTime, actualTime)
+
+		actualTime1 := numOfMinutesWeightedGraph(test.n, test.headID, test.manager, test.informTime)
+		assert.Equal(t, test.expectedTime, actualTime1)
+
+		actualTime2 := numOfMinutesOptimal(test.n, test.headID, test.manager, test.informTime)
+		assert.Equal(t, test.expectedTime, actualTime2)
 	}
 }
 
