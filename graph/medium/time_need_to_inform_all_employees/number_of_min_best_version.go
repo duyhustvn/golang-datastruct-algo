@@ -1,6 +1,6 @@
 package time_need_to_inform_all_employees
 
-func numOfMinutesOptimal(n int, headID int, manager []int, informTime []int) int {
+func NumOfMinutesOptimal(n int, headID int, manager []int, informTime []int) int {
 	if n == 0 || n == 1 {
 		return 0
 	}
@@ -9,10 +9,15 @@ func numOfMinutesOptimal(n int, headID int, manager []int, informTime []int) int
 }
 
 func dfs(adjacencyList map[int][]int, currentID int, informTime []int) int {
+	if len(adjacencyList[currentID]) == 0 {
+		return 0
+	}
+
 	subordinates := adjacencyList[currentID]
 	max := 0
 	for _, subordinate := range subordinates {
-		if currentTime := dfs(adjacencyList, subordinate, informTime); currentTime > max {
+		currentTime := dfs(adjacencyList, subordinate, informTime)
+		if currentTime > max {
 			max = currentTime
 		}
 	}

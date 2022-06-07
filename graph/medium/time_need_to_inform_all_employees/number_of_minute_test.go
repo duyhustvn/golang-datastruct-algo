@@ -83,7 +83,7 @@ func TestNumberOfMinutes(t *testing.T) {
 	}
 
 	tests := []TestData{
-		{9, 6, []int{2, 2, 6, 4, 6, 4, -1, 6, 6}, []int{0, 0, 2, 0, 1, 0, 2, 0, 0}, 4},
+		{9, 6, []int{2, 2, 6, 4, 6, 4, -1, 6, 6}, []int{0, 0, 3, 0, 1, 0, 2, 0, 0}, 5},
 		{1, 0, []int{-1}, []int{0}, 0},
 	}
 
@@ -94,7 +94,7 @@ func TestNumberOfMinutes(t *testing.T) {
 		actualTime1 := numOfMinutesWeightedGraph(test.n, test.headID, test.manager, test.informTime)
 		assert.Equal(t, test.expectedTime, actualTime1)
 
-		actualTime2 := numOfMinutesOptimal(test.n, test.headID, test.manager, test.informTime)
+		actualTime2 := NumOfMinutesOptimal(test.n, test.headID, test.manager, test.informTime)
 		assert.Equal(t, test.expectedTime, actualTime2)
 	}
 }
