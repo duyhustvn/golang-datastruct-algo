@@ -1,7 +1,8 @@
 package course_schedule
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
-	return true
+	adjacencyList := buildAdjacencyList(prerequisites)
+	return !isCyclist(adjacencyList)
 }
 
 func buildAdjacencyList(prerequisites [][]int) map[int][]int {
@@ -17,4 +18,61 @@ func buildAdjacencyList(prerequisites [][]int) map[int][]int {
 	}
 
 	return adjacencyList
+}
+
+func isCyclist(adjacencyList map[int][]int) bool {
+	for node, _ := range adjacencyList {
+		if bfs(node, adjacencyList) {
+			return true
+		}
+	}
+	return false
+}
+
+type Queue struct {
+	v []int
+}
+
+func newQueue() *Queue {
+	return &Queue{v: make([]int, 0)}
+}
+
+func (q *Queue) Push(v int) {
+	q.v = append(q.v, v)
+}
+
+func (q *Queue) IsEmpty() bool {
+	return len(q.v) == 0
+}
+
+func (q *Queue) Pop() (int, bool) {
+	if !q.IsEmpty() {
+		queueLength := len(q.v)
+		popValue := q.v[0]
+		q.v = q.v[1:queueLength]
+		return popValue, true
+	}
+	return 0, false
+}
+
+func bfs(node int, adjacencyList map[int][]int) bool {
+	q := newQueue()
+	q.Push(node)
+
+	count := 0
+	for !q.IsEmpty() {
+		curNode, _ := q.Pop()
+		if count != 0 {
+			if curNode == node {
+				return true
+			}
+		}
+		count++
+
+		neighbors := adjacencyList[curNode]
+		for _, neighbor := range neighbors {
+			q.Push(neighbor)
+		}
+	}
+	return false
 }
