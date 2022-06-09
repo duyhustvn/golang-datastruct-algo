@@ -1,23 +1,30 @@
 package course_schedule
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
-	adjacencyList := buildAdjacencyList(prerequisites)
+	adjacencyList, _ := buildAdjacencyList(prerequisites)
 	return !isCyclist(adjacencyList)
 }
 
-func buildAdjacencyList(prerequisites [][]int) map[int][]int {
+func buildAdjacencyList(prerequisites [][]int) (map[int][]int, map[int]int) {
 	adjacencyList := make(map[int][]int)
+	indegreeList := make(map[int]int)
 
 	for _, prerequisite := range prerequisites {
 		if _, ok := adjacencyList[prerequisite[1]]; !ok {
 			adjacencyList[prerequisite[1]] = []int{prerequisite[0]}
 		} else {
-
 			adjacencyList[prerequisite[1]] = append(adjacencyList[prerequisite[1]], prerequisite[0])
 		}
+
+		if _, ok := indegreeList[prerequisite[0]]; !ok {
+			indegreeList[prerequisite[0]] = 1
+		} else {
+			indegreeList[prerequisite[0]]++
+		}
+
 	}
 
-	return adjacencyList
+	return adjacencyList, indegreeList
 }
 
 func isCyclist(adjacencyList map[int][]int) bool {
