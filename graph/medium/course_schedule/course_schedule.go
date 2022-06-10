@@ -21,7 +21,6 @@ func buildAdjacencyList(prerequisites [][]int) (map[int][]int, map[int]int) {
 		} else {
 			indegreeList[prerequisite[0]]++
 		}
-
 	}
 
 	return adjacencyList, indegreeList
@@ -82,4 +81,8 @@ func bfs(node int, adjacencyList map[int][]int) bool {
 		}
 	}
 	return false
+}
+
+func topologicalSort(adjacencyList map[int][]int, indegreeList map[int]int) {
+
 }
