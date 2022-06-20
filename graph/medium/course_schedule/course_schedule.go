@@ -1,8 +1,11 @@
 package course_schedule
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
-	adjacencyList, _ := buildAdjacencyList(prerequisites)
-	return !isCyclist(adjacencyList)
+	adjacencyList, indegreeList := buildAdjacencyList(prerequisites)
+	zeroIndegreeList := getZeroIndegreeNode(numCourses, indegreeList)
+	indegreeList = topologicalSort(adjacencyList, indegreeList, zeroIndegreeList)
+	return len(indegreeList) == 0
+	// return !isCyclist(adjacencyList)
 }
 
 func buildAdjacencyList(prerequisites [][]int) (map[int][]int, map[int]int) {
@@ -83,6 +86,35 @@ func bfs(node int, adjacencyList map[int][]int) bool {
 	return false
 }
 
-func topologicalSort(adjacencyList map[int][]int, indegreeList map[int]int) {
+/*
+   Get missising key in range from 0 -> n-1 in indegreeList
+  **/
+func getZeroIndegreeNode(n int, indegreeList map[int]int) []int {
+	zeroIndegree := []int{}
+	for i := 0; i < n; i++ {
+		if _, ok := indegreeList[i]; !ok {
+			zeroIndegree = append(zeroIndegree, i)
+		}
+	}
+	return zeroIndegree
+}
 
+func topologicalSort(adjacencyList map[int][]int, indegreeList map[int]int, zeroIndegreeList []int) map[int]int {
+	for len(zeroIndegreeList) > 0 {
+		curNode := zeroIndegreeList[0]
+		zeroIndegreeList = zeroIndegreeList[1:]
+
+		if pointedNodes, ok := adjacencyList[curNode]; ok {
+			for _, node := range pointedNodes {
+				indegreeLevel := indegreeList[node]
+				if indegreeLevel-1 == 0 {
+					zeroIndegreeList = append(zeroIndegreeList, node)
+					delete(indegreeList, node)
+				} else {
+					indegreeList[node]--
+				}
+			}
+		}
+	}
+	return indegreeList
 }

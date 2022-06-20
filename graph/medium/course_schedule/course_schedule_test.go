@@ -103,3 +103,41 @@ func TestCanFinish(t *testing.T) {
 		assert.Equal(t, test.expected, actual)
 	}
 }
+
+func TestGetZeroIndegreeNode(t *testing.T) {
+	type TestData struct {
+		numberCourses int
+		indegreeList  map[int]int
+		expected      []int
+	}
+
+	tests := []TestData{
+		{6, map[int]int{0: 1, 1: 1, 2: 2, 3: 1, 4: 2}, []int{5}},
+		{7, map[int]int{0: 1, 1: 1, 2: 1, 4: 1, 5: 1, 6: 1}, []int{3}},
+	}
+
+	for _, test := range tests {
+		actual := getZeroIndegreeNode(test.numberCourses, test.indegreeList)
+		assert.Equal(t, reflect.DeepEqual(test.expected, actual), true)
+	}
+}
+
+func TestTopologicalSort(t *testing.T) {
+	type TestData struct {
+		adjacencyList        map[int][]int
+		indegreeList         map[int]int
+		zeroIndegreeList     []int
+		expectedIndegreeList map[int]int
+	}
+
+	tests := []TestData{
+		{map[int][]int{0: {1}, 1: {2}, 3: {0, 4}, 5: {2, 3, 4}}, map[int]int{0: 1, 1: 1, 2: 2, 3: 1, 4: 2}, []int{5}, map[int]int{}},
+		{map[int][]int{0: {1}, 1: {2}, 3: {0}, 4: {6}, 5: {4}, 6: {5}}, map[int]int{0: 1, 1: 1, 2: 1, 4: 1, 5: 1, 6: 1}, []int{3}, map[int]int{4: 1, 5: 1, 6: 1}},
+	}
+
+	for _, test := range tests {
+		actual := topologicalSort(test.adjacencyList, test.indegreeList, test.zeroIndegreeList)
+		assert.Equal(t, reflect.DeepEqual(test.expectedIndegreeList, actual), true)
+	}
+
+}
