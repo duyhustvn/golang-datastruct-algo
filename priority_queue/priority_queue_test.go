@@ -8,7 +8,7 @@ import (
 
 func TestEnqueue(t *testing.T) {
 	// 6 -> 5 -> 4 -> 2 -> 1 -> 0
-	pq := NewPriorityQueue()
+	pq := NewPriorityQueue(false)
 
 	pq.Enqueue(5, 5)
 	assert.Equal(t, 5, pq.Front.Value)
@@ -39,7 +39,7 @@ func TestEnqueue(t *testing.T) {
 
 func TestDeEnqueue(t *testing.T) {
 	// 6 -> 5 -> 4 -> 2 -> 1 -> 0
-	pq := NewPriorityQueue()
+	pq := NewPriorityQueue(false)
 
 	var node *Node
 	var ok bool

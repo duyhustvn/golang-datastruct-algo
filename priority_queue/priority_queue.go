@@ -11,10 +11,11 @@ type Node struct {
 type PriorityQueue struct {
 	Front *Node
 	Rear  *Node
+	IsMin bool
 }
 
-func NewPriorityQueue() *PriorityQueue {
-	return &PriorityQueue{}
+func NewPriorityQueue(isMin bool) *PriorityQueue {
+	return &PriorityQueue{IsMin: isMin}
 }
 
 func (pq *PriorityQueue) IsEmpty() bool {
@@ -37,7 +38,7 @@ func (pq *PriorityQueue) Enqueue(v interface{}, priority int) {
 	// Add to the head if priority greater than priority of front node
 	// If there is one node in queue, assign
 	curNode := pq.Front
-	if node.Priority > curNode.Priority {
+	if (node.Priority > curNode.Priority && !pq.IsMin) || (node.Priority <= curNode.Priority && pq.IsMin) {
 		node.Next = curNode
 		pq.Front = node
 
@@ -50,7 +51,7 @@ func (pq *PriorityQueue) Enqueue(v interface{}, priority int) {
 
 	var previousNode *Node
 	for curNode != nil {
-		if node.Priority > curNode.Priority {
+		if (node.Priority > curNode.Priority && !pq.IsMin) || (node.Priority <= curNode.Priority && pq.IsMin) {
 			node.Next = curNode
 			previousNode.Next = node
 			return
