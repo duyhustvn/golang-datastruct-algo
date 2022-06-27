@@ -1,6 +1,7 @@
 package findpath
 
 import (
+	priorityqueue "ds/priority_queue"
 	"math"
 	"sync"
 )
@@ -59,4 +60,53 @@ func (g *WeightedGraph) AddEdge(node1 *Node, node2 *Node, weight int) {
 
 	destEdge = newEdge(node1, weight)
 	g.Edges[node2.name] = append(g.Edges[node2.name], destEdge)
+}
+
+func (g *WeightedGraph) GetNode(city string) *Node {
+	for _, node := range g.Nodes {
+		if node.name == city {
+			return node
+		}
+	}
+	return nil
+}
+
+func Dijkstra(g *WeightedGraph, fromCity string, toCity string) {
+	queue := priorityqueue.NewPriorityQueue(true)
+
+	startNode := g.GetNode(fromCity)
+
+	queue.Enqueue(startNode, 0)
+
+	visited := make(map[string]bool)
+
+	for !queue.IsEmpty() {
+		curr, _ := queue.Dequeue()
+		currCity := curr.Value.(*Node).name
+		if _, ok := visited[currCity]; !ok {
+			visited[currCity] = true
+
+			if currCity == toCity {
+				return
+			}
+
+			// path = append(path, curr.Value.(string))
+
+			neighbors := g.Edges[currCity]
+
+			for _, neighbor := range neighbors {
+				if _, ok := visited[neighbor.node.name]; !ok {
+					distance := curr.Priority + neighbor.weight
+					queue.Enqueue(neighbor.node, distance)
+
+					if distance < neighbor.node.value {
+						neighbor.node.value = distance
+						neighbor.node.through = curr.Value.(*Node)
+					}
+				}
+			}
+		}
+	}
+
+	return
 }
