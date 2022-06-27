@@ -81,11 +81,19 @@ func (pq *PriorityQueue) Dequeue() (*Node, bool) {
 	return node, true
 }
 
-func (pq *PriorityQueue) ToString() string {
+func (pq *PriorityQueue) ToString(typ string) string {
 	str := ""
 	curNode := pq.Front
 	for curNode != nil {
-		str += fmt.Sprintf("{%d %d} ->", curNode.Value.(int), curNode.Priority)
+		switch typ {
+		case "int":
+			str += fmt.Sprintf("{%d %d} ->", curNode.Value.(int), curNode.Priority)
+			break
+		case "string":
+			str += fmt.Sprintf("{%s %d} ->", curNode.Value.(string), curNode.Priority)
+			break
+		}
+
 		curNode = curNode.Next
 	}
 	return str
