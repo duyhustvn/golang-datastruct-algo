@@ -2,11 +2,13 @@ package subsequence
 
 
 func sequencesWithFixedLength(arr []int, length int, idx int, subsequence []int, subsequences *[][]int) {
-	
+	if len(subsequence) > length {
+		return
+	} 
 	
 
-	if (idx == len(arr)) {
-		if (len(subsequence) == length) {
+	if idx == len(arr) {
+		if len(subsequence) == length {
 			*subsequences = append(*subsequences, subsequence)
 		}
 		return
