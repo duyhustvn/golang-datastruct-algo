@@ -22,6 +22,8 @@ func sequencesWithFixedLength(arr []int, length int, idx int, subsequence []int,
 
 // Generate all sub sequences
 // order is not important
+// Time complexity: O(n2^n) n is number of copy time
+// Space complexity: O(n) we use O(n) to maintain subsequence and modify subsequence in-place. 
 func allSequenceRecursive(arr []int, idx int, subsequence []int, subsequences *[][]int) {
 	if idx == len(arr) {
 		*subsequences = append(*subsequences, subsequence)
@@ -37,6 +39,8 @@ func allSequenceRecursive(arr []int, idx int, subsequence []int, subsequences *[
 	allSequenceRecursive(arr, idx+1, subsequence, subsequences)
 }
 
+// Time complexity: O(n2^n) n is number of copy time
+// Space complexity: O(n2^n) n is number of element in each subset
 func allSequenceIterative(arr []int) [][]int {
 	n := len(arr)
 
