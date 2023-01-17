@@ -42,7 +42,7 @@ func print2DSlice(sl [][]int) {
 	}
 }
 
-func TestGenerateAllSubsequenceRecursive(t *testing.T) {
+func TestGenerateAllSubsequence(t *testing.T) {
 	type DataTest struct {
 		input 		[]int
 		expectedSubsequences [][]int
@@ -60,9 +60,20 @@ func TestGenerateAllSubsequenceRecursive(t *testing.T) {
 		},
 	}
 
+	realSubsequences := [][]int{}
 	for _, test := range(tests) {
-		realSubsequences := generateSubsequence(test.input)
-		
+		// realSubsequences = generateSubsequenceRecursive(test.input)
+		// assert.Equal(t, compare2DSlices(realSubsequences, test.expectedSubsequences), true)
+
+
+		realSubsequences = generateSubsequenceIterative(test.input)
+
+		fmt.Println("Expected: ")
+		print2DSlice(test.expectedSubsequences)
+		fmt.Println("Real: ")
+		print2DSlice(realSubsequences)
+
+
 		assert.Equal(t, compare2DSlices(realSubsequences, test.expectedSubsequences), true)
 	}
 }
@@ -103,12 +114,6 @@ func TestSubsequenceWithFixedLength(t *testing.T) {
 
 	for _, test := range(tests) {
 		realSubsequences := generateSubsequenceWithFixedLength(test.input, test.length)
-
-		fmt.Println("Expected: ")
-		print2DSlice(test.expectedSubsequences)
-		fmt.Println("Real: ")
-		print2DSlice(realSubsequences)
-
 		assert.Equal(t, compare2DSlices(realSubsequences, test.expectedSubsequences), true)
 	}
 }
